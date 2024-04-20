@@ -1,44 +1,43 @@
-import path from 'path'
+const path = require('path')
 
-module.exports = {
-  // Entry point for your application
-  entry: './src/index.js',
 
-  // Output configuration for the bundled file
+module.exports= {
+  mode: 'production', // Set mode to 'production' or 'development'
+  entry: './src/main.jsx', // Entry point for your application
   output: {
-    filename: 'main.bundle.js',
-    path: path.resolve(__dirname, 'dist'),  // Output directory
+    filename: 'main.bundle.js', // Output filename
+    path: path.resolve(__dirname, 'dist'), // Output directory
   },
-
-  // Module loaders to handle different file types
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,  // Rule for JavaScript and JSX files
-        exclude: /node_modules/,  // Exclude node_modules folder
+        exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',  // Use Babel loader
+          loader: 'babel-loader', // Use Babel loader for JavaScript and JSX files
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],  // Babel presets
+            presets: ['@babel/preset-env', '@babel/preset-react'], // Babel presets
           },
         },
       },
       {
-        test: /\.css$/,  // Rule for CSS files
-        use: ['style-loader', 'css-loader'],  // Use style-loader and css-loader
+        test: /\.css$/,
+        use: [ 'css-loader'], // Use style-loader and css-loader for CSS files
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,  // Rule for image files
+        test: /\.(png|jpg|gif|svg)$/,
         use: [
           {
-            loader: 'file-loader',  // Use file-loader
+            loader: 'file-loader', // Use file-loader for image files
             options: {
-              name: '[name].[ext]',  // Preserve original filename with extension
-              outputPath: 'assets',  // Output directory for images within 'dist'
+              name: '[name].[ext]', // Preserve original filename with extension
+              outputPath: 'assets', // Output directory for images within 'dist'
             },
           },
         ],
       },
     ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'], // Resolve these extensions when importing files
   },
 };
