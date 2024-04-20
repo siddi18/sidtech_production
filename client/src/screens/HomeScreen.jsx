@@ -15,21 +15,21 @@ export default function HomeScreen() {
  const dispatch = useDispatch()
  const {data, isLoading, error} = useGetProductsQuery({keyword, pageNumber})
  console.log('data form Home :',data)
-//  const getUser = async () => {
-//      try {
-//          const res = await axios.get('http://localhost:5000/auth/login/success', {
-//              withCredentials: true
-//          })
+ const getUser = async () => {
+     try {
+         const res = await axios.get('http://localhost:5000/auth/login/success', {
+             withCredentials: true
+         })
    
-//          dispatch(setCredentials({ ...res.data.user._json, _id: res.data._id, isAdmin: res.data.user.isAdmin }))
-//      } catch (error) {
-//          toast.error(error?.data?.message || error?.error)
-//      }
-//  }
+         dispatch(setCredentials({ ...res.data.user._json, _id: res.data._id, isAdmin: res.data.user.isAdmin }))
+     } catch (error) {
+         toast.error(error?.data?.message || error?.error)
+     }
+ }
 
-//  useEffect(() => {
-//      getUser()
-//  }, [])
+ useEffect(() => {
+     getUser()
+ }, [])
  if(isLoading){
   return <Spinner />
  }
