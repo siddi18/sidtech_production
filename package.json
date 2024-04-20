@@ -9,7 +9,7 @@
         "client": "npm run dev --prefix client",
         "data:import": "node server/seeder",
         "data:destroy": "node server/seeder -d",
-        "build": "npm install && npm install --prefix client && npm run build --prefix client"
+        "build": "webpack"
     },
     "keywords": [],
     "author": "",
@@ -30,9 +30,13 @@
         "nodemon": "^3.1.0",
         "passport": "^0.7.0",
         "passport-google-oauth20": "^2.0.0",
-        "stripe": "^14.11.0"
+        "stripe": "^14.11.0",
+        "webpack": "^5.91.0"
     },
     "devDependencies": {
         "vite": "^5.2.9"
-    }
+    },
+    "workspaces": [
+        "client"
+    ]
 }
