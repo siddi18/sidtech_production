@@ -13,24 +13,23 @@ import Paginate from '../components/Paginate.jsx';
 export default function HomeScreen() {
     const {keyword, pageNumber} = useParams()
  const dispatch = useDispatch()
- console.log('keyword from homescreem :',keyword)
  const {data, isLoading, error} = useGetProductsQuery({keyword, pageNumber})
  console.log('data form Home :',data)
- const getUser = async () => {
-     try {
-         const res = await axios.get('http://localhost:5000/auth/login/success', {
-             withCredentials: true
-         })
+//  const getUser = async () => {
+//      try {
+//          const res = await axios.get('http://localhost:5000/auth/login/success', {
+//              withCredentials: true
+//          })
    
-         dispatch(setCredentials({ ...res.data.user._json, _id: res.data._id, isAdmin: res.data.user.isAdmin }))
-     } catch (error) {
-         toast.error(error?.data?.message || error?.error)
-     }
- }
+//          dispatch(setCredentials({ ...res.data.user._json, _id: res.data._id, isAdmin: res.data.user.isAdmin }))
+//      } catch (error) {
+//          toast.error(error?.data?.message || error?.error)
+//      }
+//  }
 
- useEffect(() => {
-     getUser()
- }, [])
+//  useEffect(() => {
+//      getUser()
+//  }, [])
  if(isLoading){
   return <Spinner />
  }
@@ -47,7 +46,7 @@ export default function HomeScreen() {
     ))}
     </div>
     <div className='flex justify-center mt-12'>
-        <Paginate pages={data.pages} page={data.pageNumber} keyword={keyword ? keyword : ''} />
+        <Paginate pages={data?.pages} page={data?.pageNumber} keyword={keyword ? keyword : ''} />
     </div>
     </>
     )

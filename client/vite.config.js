@@ -6,8 +6,8 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      '/api': 'https://sparktech.onrender.com',
-      '/upload': 'https://sparktech.onrender.com'
+      '/api': 'https://localhost:5000',
+      '/upload': 'https://localhost:5000'
     },
   }
 })
