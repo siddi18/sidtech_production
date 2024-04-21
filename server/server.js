@@ -19,13 +19,13 @@ connectDB()
 const app = express()
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000")
+  res.header("Access-Control-Allow-Origin", "https://sidtech.onrender.com")
     next()
   })
   
   app.use(
     cors({
-      origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
+      origin: ["http://127.0.0.1:3000", "http://localhost:3000","https://sidtech.onrender.com"],
       methods: "GET, POST, PATCH, DELETE, PUT",
       credentials: true,
     })

@@ -11,7 +11,7 @@ const router = express.Router()
 //To authenticate the user using google
 router.get('/google/callback',
     passport.authenticate('google', 
-    {successRedirect: 'http://localhost:3000/',
+    {successRedirect: 'https://sidtech.onrender.com',
     failureRedirect:`${process.env.CLIENT_URL}login/failed`,
 })
 )
