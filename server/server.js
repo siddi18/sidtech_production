@@ -49,7 +49,7 @@ app.use('/api/upload', uploadRoute)
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
-if (process.env.NODE_ENV === "production") {
+if (true) {
   const __dirname = path.resolve()
   app.use("/uploads", express.static(path.join(__dirname, "uploads")))
   app.use(express.static(path.join(__dirname, "/client/dist")))
