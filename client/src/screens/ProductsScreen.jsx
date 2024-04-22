@@ -17,6 +17,7 @@ export default function ProductsScreen() {
    const {id : productId} = useParams()
    const {data: product, isLoading, error, refetch} = useGetProductDetailsQuery(productId)
    const [createReview, {isLoading: LoadingCreateReview}] = useCreateReviewMutation()
+   console.log('prod screen :',product)
    if(isLoading){
     return <Spinner />
    }

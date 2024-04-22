@@ -5,14 +5,14 @@ export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: ({keyword, pageNumber}) => ({
-        url: 'https://sidtech.onrender.com/api/products',
+        url: 'http://localhost:5000/api/products',
         params: {keyword, pageNumber}
       }),
       keepUnusedDataFor: 5, // Optional: Cache data for 5 minutes
     }),
     getProductDetails: builder.query({
       query: (productId) => ({
-        url: `https://sidtech.onrender.com/api/products/${productId}`,
+        url: `http://localhost:5000/api/products/${productId}`,
       }),
       keepUnusedDataFor: 5, // Optional: Cache data for 5 minutes
     }),
@@ -34,7 +34,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     }),
     uploadFileHandler: builder.mutation({
       query: data => ({
-        url: `${BACKEND_URL}/api/upload`,
+        url: 'http://localhost:5000/api/upload',
         method: "POST",
         body: data,
       }),

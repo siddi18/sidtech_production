@@ -24,7 +24,6 @@ export default function ProductEditScreen() {
     })
 
     const { name, price, image, brand, category, countInStock, description } = productData
-    console.log('prodeuctData :',productData)
     const handleInputChange = e => {
         const { name, value } = e.target
         setProductData({
@@ -52,7 +51,8 @@ export default function ProductEditScreen() {
         formData.append('image', e.target.files[0])     // here image is the key
         try {
             const res = await uploadProductImage(formData).unwrap()
-            toast.success(res.message)
+            console.log('image res :', res)
+            toast.success('hello')
             setProductData({
                 ...productData,
                 image: res.image

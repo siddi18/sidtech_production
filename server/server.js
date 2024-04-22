@@ -19,13 +19,13 @@ connectDB()
 const app = express()
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://sidtech.onrender.com")
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000")
     next()
   })
   
-  app.use(
+app.use(
     cors({
-      origin: ["http://127.0.0.1:3000", "http://localhost:3000","https://sidtech.onrender.com"],
+      origin: ["http://127.0.0.1:3000", "http://localhost:3000"],
       methods: "GET, POST, PATCH, DELETE, PUT",
       credentials: true,
     })
@@ -37,6 +37,11 @@ app.use((req, res, next) => {
   passport(app)
   stripeUtil(app)
 
+// Serve files statically from the 'uploads' directory
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
 const PORT = process.env.PORT;
 
 
@@ -46,22 +51,22 @@ app.use('/auth', authRoute)
 app.use('/api/orders', orderRoute)
 app.use('/api/upload', uploadRoute)
 
-const __dirname = path.resolve()
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+// const __dirname = path.resolve()
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
-if (process.env.NODE_ENV === "production") {
-  const __dirname = path.resolve()
-  app.use("/uploads", express.static(path.join(__dirname, "uploads")))
-  app.use(express.static(path.join(__dirname, "/client/dist")))
-  app.use("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
-  )
-} else {
-  app.use("/uploads", express.static(path.join(__dirname, "uploads")))
-  app.get("/", (req, res) => {
-    res.send("Api is running...")
-  })
-}
+// if (process.env.NODE_ENV === "production") {
+//   const __dirname = path.resolve()
+//   app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+//   app.use(express.static(path.join(__dirname, "/client/dist")))
+//   app.use("*", (req, res) =>
+//     res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
+//   )
+// } else {
+//   app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+//   app.get("/", (req, res) => {
+//     res.send("Api is running...")
+//   })
+// }
 
 app.use(errorHandler)
 app.use(notFound)
