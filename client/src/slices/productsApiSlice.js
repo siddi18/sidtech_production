@@ -5,14 +5,14 @@ export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: ({keyword, pageNumber}) => ({
-        url: 'http://localhost:5000/api/products',
+        url: PRODUCTS_URL,
         params: {keyword, pageNumber}
       }),
       keepUnusedDataFor: 5, // Optional: Cache data for 5 minutes
     }),
     getProductDetails: builder.query({
       query: (productId) => ({
-        url: `http://localhost:5000/api/products/${productId}`,
+        url: `${PRODUCTS_URL}/${productId}`,
       }),
       keepUnusedDataFor: 5, // Optional: Cache data for 5 minutes
     }),
@@ -34,7 +34,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     }),
     uploadFileHandler: builder.mutation({
       query: data => ({
-        url: 'http://localhost:5000/api/upload',
+        url: "/api/upload",
         method: "POST",
         body: data,
       }),

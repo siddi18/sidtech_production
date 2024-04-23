@@ -9,8 +9,8 @@ export default defineConfig({
     //   outDir: 'dist', // Specify the output directory
     // },
     proxy: {
-      '/api': 'http://localhost:5000',
-      '/upload': 'http://localhost:5000'
+      '/api': 'https://sidtech.onrender.com',
+      '/upload': 'https://sidtech.onrender.com'
     },
   }
 })

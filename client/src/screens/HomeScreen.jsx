@@ -16,7 +16,7 @@ export default function HomeScreen() {
  const {data, isLoading, error} = useGetProductsQuery({keyword, pageNumber})
  const getUser = async () => {
      try {
-         const res = await axios.get('http://localhost:5000/auth/login/success', {
+         const res = await axios.get('https://sidtech.onrender.com/auth/login/success', {
              withCredentials: true
          })
    
