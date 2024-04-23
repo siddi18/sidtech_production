@@ -39,19 +39,6 @@ app.use(
 
 // Serve files statically from the 'uploads' directory
 const __dirname = path.resolve();
-if (process.env.NODE_ENV === "production") {
-  const __dirname = path.resolve()
-  app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-  app.use(express.static(path.join(__dirname, "/client/dist")))
-  app.use("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
-  )
-} else {
-  app.use("/uploads", express.static(path.join(__dirname, "uploads")))
-  app.get("/", (req, res) => {
-    res.send("Api is running...")
-  })
-}
 
 
 const PORT = process.env.PORT;
@@ -63,6 +50,20 @@ app.use('/auth', authRoute)
 app.use('/api/orders', orderRoute)
 app.use('/api/upload', uploadRoute)
 
+
+if (process.env.NODE_ENV === "production") {
+  const __dirname = path.resolve()
+  app.use(express.static(path.join(__dirname, "/client/dist")))
+  app.use("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
+  )
+  app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+} else {
+  app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+  app.get("/", (req, res) => {
+    res.send("Api is running...")
+  })
+}
 
 app.use(errorHandler)
 app.use(notFound)
