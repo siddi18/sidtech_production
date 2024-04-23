@@ -2,7 +2,7 @@ import User from '../models/userModel.js'
 import asyncHandler from 'express-async-handler'
 import generateToken from '../utils/generateToken.js'
 import sendEmail from '../utils/sendEmail.js'
-import crypto from 'crypto'
+import CryptoJS from "crypto-js"
 
 const loginUser = asyncHandler(async(req, res) =>{
     const {email, password} = req.body
@@ -98,7 +98,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     const resetToken = user.createPasswordResetToken()
     user.save()
   
-    const resetUrl = `${req.protocol}://localhost:3000/api/users/reset-password/${resetToken}`
+    const resetUrl = `${req.protocol}://localhost:3000/reset-password/${resetToken}`
   
     const message = `Forgot Password? Click on this this link to reset your Password: ${resetUrl}`
   
@@ -127,15 +127,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   })
 
   const resetPassword = asyncHandler(async (req, res) => {
-    const hashedToken = crypto
-      .createHash("sha256")
-      .update(req.params.resetToken)
-      .digest("hex")
-  
+    const hashedToken = CryptoJS.SHA256(req.params.resetToken).toString(CryptoJS.enc.Hex);
+
+    // Find the user with the matching hashed password reset token and expiration time
     const user = await User.findOne({
       passwordResetToken: hashedToken,
       passwordResetExpires: { $gt: Date.now() },
-    })
+    });
   
     if (!user) {
       res.status(400).json({

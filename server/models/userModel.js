@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import bcrypt from "bcryptjs"
-import crypto from 'crypto';
+import CryptoJS from "crypto-js"
 
 const userSchema = mongoose.Schema(
   {
@@ -45,18 +45,26 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt)
 })
 
+
+// Assuming userSchema is defined elsewhere
 userSchema.methods.createPasswordResetToken = function () {
-  const resetToken = crypto.randomBytes(32).toString("hex")
+  // Generate a random token
+  const randomToken = CryptoJS.lib.WordArray.random(32);
+  const resetToken = CryptoJS.enc.Hex.stringify(randomToken);
 
-  this.passwordResetToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+  // Hash the reset token using SHA-256
+  const hashedToken = CryptoJS.SHA256(resetToken).toString(CryptoJS.enc.Hex);
 
-  this.passwordResetExpires = Date.now() + 10 * 60 * 1000 //10min
+  // Set the password reset token
+  this.passwordResetToken = hashedToken;
 
-  return resetToken
-}
+  // Set the expiration time for the password reset token (10 minutes)
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+  // Return the unhashed reset token (if needed)
+  return resetToken;
+};
+
 
 const User = mongoose.model("User", userSchema)
 

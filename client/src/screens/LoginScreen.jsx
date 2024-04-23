@@ -91,7 +91,7 @@ export default function LoginScreen() {
                 <p className="mt-1">
                     Forgot Password?{' '}
                     <span className="text-blue-500 cursor-pointer" onClick={handleForgotPassword}>
-                        Click here
+                    Click here
                     </span>
                 </p>
                 {isLoadingPassword && <Spinner />}

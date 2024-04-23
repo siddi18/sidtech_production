@@ -35,7 +35,7 @@ const router = createBrowserRouter(
       <Route path='/cart' element={<CartScreen />} />
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
-      <Route path='/forgot-password' element={<ResetPassword />} />
+      <Route path='/reset-password/:resetToken' element={<ResetPassword />} />
       {/* Private route */}
       <Route path='' element={<PrivateRoute />}>
         <Route path='/shipping' element={<ShippingScreen />} />
