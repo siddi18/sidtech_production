@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   
 app.use(
     cors({
-      origin: ["http://127.0.0.1:3000", "http://localhost:3000", "https://sidtech.onrender.com"],
+      origin: ["https://sidtech.onrender.com"],
       methods: "GET, POST, PATCH, DELETE, PUT",
       credentials: true,
     })
@@ -39,18 +39,6 @@ app.use(
 
 // Serve files statically from the 'uploads' directory
 const __dirname = path.resolve();
-
-
-const PORT = process.env.PORT;
-
-
-app.use('/api/products', productRoute)
-app.use('/api/users', userRoute)
-app.use('/auth', authRoute)
-app.use('/api/orders', orderRoute)
-app.use('/api/upload', uploadRoute)
-
-
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve()
   app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -64,6 +52,17 @@ if (process.env.NODE_ENV === "production") {
     res.send("Api is running...")
   })
 }
+
+
+const PORT = process.env.PORT;
+
+
+app.use('/api/products', productRoute)
+app.use('/api/users', userRoute)
+app.use('/auth', authRoute)
+app.use('/api/orders', orderRoute)
+app.use('/api/upload', uploadRoute)
+
 
 app.use(errorHandler)
 app.use(notFound)
