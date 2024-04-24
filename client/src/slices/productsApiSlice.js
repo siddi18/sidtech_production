@@ -34,7 +34,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     }),
     uploadFileHandler: builder.mutation({
       query: data => ({
-        url: "/api/upload",
+        url: "https://sidtech.onrender.com/api/upload",
         method: "POST",
         body: data,
       }),

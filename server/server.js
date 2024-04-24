@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   
 app.use(
     cors({
-      origin: ["https://sidtech.onrender.com"],
+      origin: ["http://127.0.0.1:3000", "https://sidtech.onrender.com"],
       methods: "GET, POST, PATCH, DELETE, PUT",
       credentials: true,
     })
@@ -39,8 +39,12 @@ app.use(
 
 // Serve files statically from the 'uploads' directory
 const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-
+app.use(express.static(path.join(__dirname, "/client/dist")))
+   app.use("*", (req, res) =>
+     res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
+  )
 const PORT = process.env.PORT;
 
 
@@ -50,20 +54,22 @@ app.use('/auth', authRoute)
 app.use('/api/orders', orderRoute)
 app.use('/api/upload', uploadRoute)
 
+// const __dirname = path.resolve()
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
-if (process.env.NODE_ENV === "production") {
-  const __dirname = path.resolve()
-  app.use(express.static(path.join(__dirname, "/client/dist")))
-  app.use("*", (req, res) =>
-  res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
-  )
-  //app.use('/images', express.static(path.join(__dirname, 'uploads')));
-} else {
-  //app.use("/uploads", express.static(path.join(__dirname, "uploads")))
-  app.get("/", (req, res) => {
-    res.send("Api is running...")
-  })
-}
+// if (process.env.NODE_ENV === "production") {
+//   const __dirname = path.resolve()
+//   app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+//   app.use(express.static(path.join(__dirname, "/client/dist")))
+//   app.use("*", (req, res) =>
+//     res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
+//   )
+// } else {
+//   app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+//   app.get("/", (req, res) => {
+//     res.send("Api is running...")
+//   })
+// }
 
 app.use(errorHandler)
 app.use(notFound)
