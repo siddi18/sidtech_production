@@ -49,7 +49,6 @@ app.use('/auth', authRoute)
 app.use('/api/orders', orderRoute)
 app.use('/api/upload', uploadRoute)
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
  if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve()
@@ -59,7 +58,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
     res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"))
   )
 } else {
-  app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+  app.use("/uploads", express.static(path.join(__dirname, "../uploads")))
   app.get("/", (req, res) => {
     res.send("Api is running...")
   })
