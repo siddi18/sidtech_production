@@ -5,7 +5,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: ({keyword, pageNumber}) => ({
-        url: 'https://sidtech.onrender.com',
+        url: 'https://sidtech.onrender.com/api/products',
         params: {keyword, pageNumber}
       }),
       keepUnusedDataFor: 5, // Optional: Cache data for 5 minutes
