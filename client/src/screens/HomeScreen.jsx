@@ -9,6 +9,7 @@ import { setCredentials } from '../slices/userSlice.js';
 import axios from 'axios'
 import { useEffect } from 'react';
 import Paginate from '../components/Paginate.jsx';
+import HomeCarousel from '../components/HomeCarousel.jsx';
  
 export default function HomeScreen() {
     const {keyword, pageNumber} = useParams()
@@ -39,6 +40,7 @@ export default function HomeScreen() {
 
   return (
     <>
+     <HomeCarousel />
     <div className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4'>
     {data?.products?.map((product, i)=>(
         <Product key={i} product={product} />
